@@ -129,42 +129,48 @@ EOT;
 		</form>
 EOT;
 
-	}elseif($profile_arr['profile_msg']=="CUST_OK"){
+	}elseif($profile_arr['profile_msg']=="PROF_ERR"){
                 echo <<<EOT
-
-		<form name="login" action="$linkloginonly" method="post" onSubmit="return doLogin()">
-			<input type="hidden" name="dst" value="$linkorig" />
-			<input type="hidden" name="popup" value="true" />
-					
-			<div class="alert alert-success" role="alert">
-  				{$profile_arr['info_msg']}
-			</div>
-	
-			<table width="100" style="background-color: #ffffff">
-				<td><input style="width: 80px" name="username" type="hidden" value="$mac_address"/></td>
-				</tr>
-				<td><input style="width: 80px" name="password" type="hidden" value="reusablepass"/></td>
-				</tr>
-				<tr><td> </td>
-				<td><input type="submit" class="btn btn-primary" value="a navegar!"/></td>
-				</tr>
-			</table>
-		</form>
-
-EOT;
-
-	}else {
-		$alert = $profile_arr['op_code'] ? "success" : "danger"	;
-		$msg = $profile_arr['op_code'] ? $profile_arr['info_msg'] : $profile_arr['profile_msg'].": ".$profile_arr['error_info'];
-		
-                echo <<<EOT
-                        <div class="alert alert-$alert" role="alert">
-                                $msg
+                        <div class="alert alert-danger" role="alert">
+                                El codigo de acceso ingresado no es valido, puedes usar nuestra cuenta de invitado si dejas en blanco el campo "codigo de acceso"
                         </div>
 EOT;
 
-	}
+	}elseif($profile_arr['profile_msg']=="CREATE_ERR") {
+                echo <<<EOT
+                        <div class="alert alert-danger" role="alert">
+                                Hemos tenido un problema con tu cuenta, por favor llama nuestro call center
+                        </div>
+EOT;
 
+	}elseif($profile_arr['profile_msg']=="NOMAC_ERR") {
+                echo <<<EOT
+                        <div class="alert alert-danger" role="alert">
+                                Por favor conectate nuevamente a nuestro punto de accesso y vuelve a intentar.
+                        </div>
+EOT;
+	}elseif($profile_arr['profile_msg']=="CUST_OK") {
+		$customer = $profile_arr['user_name'];
+                echo <<<EOT
+                        <div class="alert alert-success" role="alert">
+                                Bienvenido $customer
+                        </div>
+EOT;
+	}elseif($profile_arr['profile_msg']=="CUST_ERR") {
+		$msg_err = $profile_arr['error_info'];
+                echo <<<EOT
+                        <div class="alert alert-danger" role="alert">
+                                $msg_err
+                        </div>
+EOT;
+	}elseif($profile_arr['profile_msg']=="APIANA_ERR") {
+		$msg_err = $profile_arr['error_info'];
+                echo <<<EOT
+                        <div class="alert alert-danger" role="alert">
+                                Api error: $msg_err
+                        </div>
+EOT;
+	}
 ?>
 
 			       </td>
@@ -173,11 +179,13 @@ EOT;
 
 			 <!-- $(if error) -->
 			 <br />
+			 <div style="color: #FF8080; font-size: 9px"><?php echo $error; ?></div>
+			 <!-- $(endif) -->
+
 		      </td>
 		   </tr>
 		</table>
 
-<?php #print_r($profile_arr);?>
 
 <script type="text/javascript">
 <!--

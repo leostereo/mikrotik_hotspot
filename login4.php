@@ -64,24 +64,27 @@ EOT;
                      <input type="hidden" name="popup" value="true" />
 
 
-	  <div class="form-group">
-	    <label for="username">Usuario</label>
-	    <input type="text" class="form-control" name="username">
-	  </div>
-	  <div class="form-group">
-	    <label for="document">Documento</label>
-	    <input type="text" class="form-control" name="document">
-	  </div>
-	  <div class="form-group">
-	    <label for="phone">Telefono</label>
-	    <input type="text" class="form-control" name="phone">
-	  </div>
-	  <div class="form-group">
-	    <label for="code">Codigo de acceso</label>
-	    <input type="text" class="form-control" name="code">
-	  </div>
+		<div class="form-group">
+			<label for="username">Usuario</label>
+			<input type="text" class="form-control" name="username">
+		</div>
+		<div class="form-group">
+			<label for="document">Documento</label>
+			<input type="text" class="form-control" name="document">
+		</div>
+		<div class="checkbox">
+			<label><input name="customer" type="checkbox">Soy Cliente</label>
+		</div>
+		<div class="form-group">
+			<label for="phone">Telefono</label>
+			<input type="text" class="form-control" name="phone">
+		</div>
+		<div class="form-group">
+			<label for="code">Codigo de acceso</label>
+			<input type="text" class="form-control" name="code">
+		</div>
 		<div class="submit_frame">
-	  		<button type="submit" class="btn btn-primary">INGRESAR</button>
+			<button type="submit" class="btn btn-primary">INGRESAR</button>
 		</div>
 	</form>
 </div>
