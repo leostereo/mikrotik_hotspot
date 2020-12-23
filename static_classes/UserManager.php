@@ -53,6 +53,8 @@ class UserManager
 
 	private static function add_user_to_hotspot ($mac,$srv_arr){
 
+
+
 	$API = new RouterosAPI();
 	$API->debug = false;
 	$API->timeout = 1;
@@ -71,8 +73,7 @@ class UserManager
 			      "name"     => $mac,
 			      "mac-address"     => $mac,
 			      "password" => "reusablepass",
-			      "limit-uptime"  => $srv_arr['limit-uptime'],
-
+			      "profile"  => $srv_arr['profile'],
 			   ));
 
 
@@ -121,7 +122,7 @@ class UserManager
 					
 						if($user_arr['status']){
 
-							$srv_arr['limit-uptime']="00:40:00";								
+							$srv_arr['profile']="WIBERCUSTOMER";								
 													
 							if(self::add_user_to_hotspot($mac, $srv_arr)){
 								self::$profile_arr['info_msg']="Bienvenido {$user_arr['nombre']}";
@@ -155,12 +156,15 @@ class UserManager
 				return self::$profile_arr;
 			}
 
-                        $srv_arr['limit-uptime']="00:30:00";
+                        $srv_arr['profile']=$profile;
 
 			if(self::add_user_to_hotspot($mac, $srv_arr)){
-				self::$profile_arr['info_msg']="Bienvenido {$user_arr['nombre']}";
+				self::$profile_arr['info_msg']="Bienvenido, ya puedes navegar con tu cuenta de estudiante";
 				self::$profile_arr['profile_msg']=$profile;
 			}
+
+		return self::$profile_arr;
+
 		}
 
 	}	

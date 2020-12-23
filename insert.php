@@ -94,6 +94,7 @@ $line = date("Y-m-d H:i:s")." $username $document $code $phone $ip_address $mac_
 
 
 <?php
+
 	if($profile_arr['profile_msg']=="trial"){
 
 		echo <<<EOT
@@ -101,8 +102,6 @@ $line = date("Y-m-d H:i:s")." $username $document $code $phone $ip_address $mac_
   				Bienvenido $username , te invitamos a navegar con nuestra cuenta de invitado.
 			</div>
 		      <a  class="submit_button" href="$linkloginonly?dst=$linkorigesc&username=T-$macesc">a navegar!</a>
-
-
 
 EOT;
 		
@@ -114,7 +113,7 @@ EOT;
 			<input type="hidden" name="popup" value="true" />
 					
 			<div class="alert alert-success" role="alert">
-  				Bienvenido $username
+  				{$profile_arr['info_msg']}
 			</div>
 	
 			<table width="100" style="background-color: #ffffff">
@@ -161,6 +160,7 @@ EOT;
                         <div class="alert alert-$alert" role="alert">
                                 $msg
                         </div>
+		      <a  class="submit_button" href="$linkloginonly">Volver</a>
 EOT;
 
 	}
