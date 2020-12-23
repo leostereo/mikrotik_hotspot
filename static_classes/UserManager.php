@@ -26,6 +26,17 @@ class UserManager
 
     }
 
+    private static function delete_user($mac) {
+
+	$host = '172.30.7.2';
+	$ros_command= "ip hotspot user remove \"$mac\"";
+	$shell_command= "sshpass -p 'api_user' ssh api_user\@$host -p22000 -o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null '".$ros_command."'";
+	$out_str = shell_exec($shell_command);
+	#echo $ros_command;
+	#echo "<br>";
+	#echo $out_str;
+	return true;
+    }
 
     private static function user_exist($mac) {
 
@@ -35,7 +46,7 @@ class UserManager
 	$out_str = shell_exec($shell_command);
 	#echo $ros_command;
 	#echo "<br>";
-	#echo $out_str;
+	#echo "out :".$out_str;
 	return preg_match('/already have user with this name/',$out_str)? true: false;
     }
 
@@ -53,7 +64,8 @@ class UserManager
 
 	private static function add_user_to_hotspot ($mac,$srv_arr){
 
-
+	#echo "mac $mac\n";
+	#print_r($srv_arr);
 
 	$API = new RouterosAPI();
 	$API->debug = false;
@@ -146,8 +158,8 @@ class UserManager
 
 		if(($mac)&&($code)){
 		#$mac = "60:8F:5C:B8:75:4F";
-
 			$profile = self::profile_resolver($code);
+		
 
 			if(!$profile){
 				self::$profile_arr['op_code']=false;
@@ -157,6 +169,7 @@ class UserManager
 			}
 
                         $srv_arr['profile']=$profile;
+
 
 			if(self::add_user_to_hotspot($mac, $srv_arr)){
 				self::$profile_arr['info_msg']="Bienvenido, ya puedes navegar con tu cuenta de estudiante";

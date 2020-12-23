@@ -1,9 +1,10 @@
 <?php
 require 'static_classes/UserManager.php';
-$username=$_POST['username'];
+$name=$_POST['name'];
 $document=$_POST['document'];
-$customer=$_POST['customer'] ? true : false;
+$customer=$_POST['is_customer'] ? true : false;
 $phone=$_POST['phone'];
+$mail=$_POST['mail'];
 $code=strtoupper($_POST['code']);
 #$code="ESTUDIANTELUJAN";
 
@@ -18,7 +19,7 @@ $chapid=$_POST['chap-id'];
 
 
 $file = 'loginlog.txt';
-$line = date("Y-m-d H:i:s")." $username $document $code $phone $ip_address $mac_address".PHP_EOL;
+$line = date("Y-m-d H:i:s")." $name $document $phone $mail $ip_address $mac_address $code".PHP_EOL;
 #$host = '192.168.89.1';
 #$ros_command= "/ip hotspot active login user=user1 password=user123 mac-address=$mac_address ip=$ip_address";
 #$shell_command= "sshpass -p 'api_user' ssh api_user\@$host -p22 -o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null '".$ros_command."'";
@@ -49,7 +50,7 @@ $line = date("Y-m-d H:i:s")." $username $document $code $phone $ip_address $mac_
 	#echo $msg.PHP_EOL;
 
 
-	$profile_arr = UserManager::get_profile($username,$mac_address,$code,$customer,$document);	
+	$profile_arr = UserManager::get_profile($name,$mac_address,$code,$customer,$document);	
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
