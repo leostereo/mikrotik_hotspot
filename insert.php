@@ -14,44 +14,19 @@ $mac_address=$_POST['mac_address'];
 
 $macesc = $_POST['macesc'];
 $linkorigesc = $_POST['linkorigesc'];
+$linkorig = $_POST['linkorig'];
 $linkloginonly = $_POST['linkloginonly'];
 $chapid=$_POST['chap-id'];
 
 
-$file = 'loginlog.txt';
-$line = date("Y-m-d H:i:s")." $name $document $phone $mail $ip_address $mac_address $code".PHP_EOL;
-#$host = '192.168.89.1';
-#$ros_command= "/ip hotspot active login user=user1 password=user123 mac-address=$mac_address ip=$ip_address";
-#$shell_command= "sshpass -p 'api_user' ssh api_user\@$host -p22 -o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null '".$ros_command."'";
-#$shell_command= "sshpass -p 'api_user' ssh api_user\@$host -p22 -o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null ' ip address print'";
-#system($shell_command, $out);
-#$ros_command= "/ip hotspot active print detail";
-#$ros_command= "/ip address print";
-#$shell_command= "sshpass -p 'api_user' ssh api_user\@$host -p22 -o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null '".$ros_command."'";
-#$out = shell_exec($shell_command);
-#$out_arr = explode("\n", $out);
-
-
-#print_r($_POST);
-#echo "var";
-#echo "<br>";
-#echo "$macesc";
-#echo $linkorigesc."<br>";
-#echo $linkloginonly."<br>";
-
-	#$matches = preg_match("/$mac_address/",$out);
-	#if($matches){
-	#	$msg = "Bienvenido $username";
-	#}else{
-	#	$msg = "hemos tenido un error con su login";
-	#}
-
+	$file = 'loginlog.txt';
+	$line = date("Y-m-d H:i:s")." $name $document $phone $mail $ip_address $mac_address $code".PHP_EOL;
 	file_put_contents($file, $line, FILE_APPEND | LOCK_EX);
 	#echo $msg.PHP_EOL;
 
+	$profile_arr = UserManager::get_profile($name,$mac_address,$code,$customer,$document,$mail);	
 
-	$profile_arr = UserManager::get_profile($name,$mac_address,$code,$customer,$document);	
-
+	#print_r($_POST);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -141,7 +116,7 @@ EOT;
 			</div>
 	
 			<table width="100" style="background-color: #ffffff">
-				<td><input style="width: 80px" name="username" type="hidden" value="$mac_address"/></td>
+				<td><input style="width: 80px" name="username" type="hidden" value="$document"/></td>
 				</tr>
 				<td><input style="width: 80px" name="password" type="hidden" value="reusablepass"/></td>
 				</tr>

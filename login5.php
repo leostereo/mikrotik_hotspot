@@ -13,7 +13,6 @@ require 'static_classes/ErrorManager.php';
    $linkorigesc=$_POST['link-orig-esc'];
    $macesc=$_POST['mac-esc'];
 	$error_msg = ErrorManager::get_error($error);
-	#print_r($_POST);
 ?>
 
 <!doctype html>
@@ -75,6 +74,8 @@ EOT;
                      <input type="hidden" name="macesc" value="<?php echo $macesc; ?>" />
                      <input type="hidden" name="linkloginonly" value="<?php echo $linkloginonly; ?>" />
                      <input type="hidden" name="linkorigesc" value="<?php echo $linkorigesc; ?>" />
+                     <input type="hidden" name="linkorigesc" value="<?php echo $linkorigesc; ?>" />
+                     <input type="hidden" name="linkorig" value="<?php echo $linkorig; ?>" />
                      <input type="hidden" name="chap-id" value="<?php echo $chapid; ?>" />
 
                      <input type="hidden" name="dst" value="<?php echo $linkorig; ?>" />

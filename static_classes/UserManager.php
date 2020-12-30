@@ -1,6 +1,7 @@
 <?php
 
 require('routeros-api/routeros_api.class.php');
+require('ValidatorClass.php');
 
 class UserManager
 {
@@ -12,16 +13,28 @@ class UserManager
 			"info_msg" => ""		
 		);
 
-    public static function get_profile($user, $mac, $code, $customer, $document) {
-
+    public static function get_profile($user, $mac, $code, $customer, $document, $mail) {
+		
+		$validator_result_arr = ValidatorClass::validate($user, $mac, $code, $customer, $document, $mail);
+		
+		if($validator_result_arr['result']){
 	
-		if($customer){
-			return self::create_customer_user($mac,$document);
-		}elseif($code){
-			return self::create_code_user($mac,$code);
+			if($customer){
+				return self::create_customer_user($mac,$document);
+			}elseif($code){
+				return self::create_code_user($mac,$code);
+			}else{
+				self::$profile_arr['profile_msg']="trial";
+				return self::$profile_arr;
+			}
+
 		}else{
-			self::$profile_arr['profile_msg']="trial";
+			self::$profile_arr['op_code']=$validator_result_arr['op_code'];
+			self::$profile_arr['error_info']=$validator_result_arr['error_info'];
+			self::$profile_arr['profile_msg']=$validator_result_arr['profile_msg'];
+			self::$profile_arr['info_msg']=$validator_result_arr['info_msg'];
 			return self::$profile_arr;
+					
 		}
 
     }
@@ -38,14 +51,15 @@ class UserManager
 	return true;
     }
 
-    private static function user_exist($mac) {
+    private static function user_exist($name,$mac) {
 
 	$host = '172.30.7.2';
-	$ros_command= "ip hotspot user add name=$mac mac-address=$mac password=reusablepass";
+	$ros_command= "ip hotspot user add name=$name mac-address=$mac password=reusablepass";
 	$shell_command= "sshpass -p 'api_user' ssh api_user\@$host -p22000 -o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null '".$ros_command."'";
 	$out_str = shell_exec($shell_command);
 	#echo $ros_command;
 	#echo "<br>";
+	#echo "out :".$ros_command;
 	#echo "out :".$out_str;
 	return preg_match('/already have user with this name/',$out_str)? true: false;
     }
@@ -62,7 +76,7 @@ class UserManager
 			return false;	
 	}
 
-	private static function add_user_to_hotspot ($mac,$srv_arr){
+	private static function add_user_to_hotspot ($name,$mac,$srv_arr){
 
 	#echo "mac $mac\n";
 	#print_r($srv_arr);
@@ -82,7 +96,7 @@ class UserManager
 			#   $API->write('/ip/hotspot/user/getall');
 
 			   $API->comm("/ip/hotspot/user/add", array(
-			      "name"     => $mac,
+			      "name"     => $name,
 			      "mac-address"     => $mac,
 			      "password" => "reusablepass",
 			      "profile"  => $srv_arr['profile'],
@@ -99,7 +113,7 @@ class UserManager
 			}
 
 			
-			if (self::user_exist($mac)) {
+			if (self::user_exist($name, $mac)) {
 				return true;
 			}else {
 				self::$profile_arr['op_code']=false;
@@ -113,6 +127,7 @@ class UserManager
 
 
 	private static function create_customer_user($mac,$document){
+			#echo $mac;
 
 			$profile_arr = array();
         		$ch = curl_init();
@@ -135,8 +150,9 @@ class UserManager
 						if($user_arr['status']){
 
 							$srv_arr['profile']="WIBERCUSTOMER";								
+							$mac="00:00:00:00:00:00";
 													
-							if(self::add_user_to_hotspot($mac, $srv_arr)){
+							if(self::add_user_to_hotspot($document,$mac, $srv_arr)){
 								self::$profile_arr['info_msg']="Bienvenido {$user_arr['nombre']}";
 								self::$profile_arr['profile_msg']="CUST_OK";
 							}
@@ -155,7 +171,6 @@ class UserManager
 
 	private static function create_code_user($mac,$code){
 
-
 		if(($mac)&&($code)){
 		#$mac = "60:8F:5C:B8:75:4F";
 			$profile = self::profile_resolver($code);
@@ -163,7 +178,7 @@ class UserManager
 
 			if(!$profile){
 				self::$profile_arr['op_code']=false;
-				self::$profile_arr['error_info']="El codigo de acceso ingresado no es valido";
+				self::$profile_arr['error_info']="El codigo de acceso ingresado no existe";
 				self::$profile_arr['profile_msg']="COD_ERR";
 				return self::$profile_arr;
 			}
@@ -171,7 +186,7 @@ class UserManager
                         $srv_arr['profile']=$profile;
 
 
-			if(self::add_user_to_hotspot($mac, $srv_arr)){
+			if(self::add_user_to_hotspot($mac, $mac, $srv_arr)){
 				self::$profile_arr['info_msg']="Bienvenido, ya puedes navegar con tu cuenta de estudiante";
 				self::$profile_arr['profile_msg']=$profile;
 			}

@@ -5,7 +5,7 @@ require 'static_classes/ErrorManager.php';
    $mac=$_POST['mac_address'];
    $ip=$_POST['ip_address'];
    $linklogin=$_POST['linkloginonly'];
-   $linkorig=$_POST['linkorigesc'];
+   $linkorig=$_POST['linkorig'];
    #$error=$_POST['error'];
    $chapid=$_POST['chap-id'];
    #$chapchallenge=$_POST['chap-challenge'];
@@ -47,6 +47,7 @@ require 'static_classes/ErrorManager.php';
                      <input type="hidden" name="macesc" value="<?php echo $macesc; ?>" />
                      <input type="hidden" name="linkloginonly" value="<?php echo $linkloginonly; ?>" />
                      <input type="hidden" name="linkorigesc" value="<?php echo $linkorigesc; ?>" />
+                     <input type="hidden" name="linkorig" value="<?php echo $linkorig; ?>" />
                      <input type="hidden" name="chap-id" value="<?php echo $chapid; ?>" />
 
                      <input type="hidden" name="dst" value="<?php echo $linkorig; ?>" />
@@ -69,7 +70,7 @@ require 'static_classes/ErrorManager.php';
 		</div>
 		<div class="form-group">
 			<label for="code">Correo</label>
-			<input type="text" class="form-control" name="email">
+			<input type="text" class="form-control" name="mail">
 		</div>
 		<div class="form-group">
 			<label for="code">Codigo de acceso</label>

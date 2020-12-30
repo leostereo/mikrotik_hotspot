@@ -17,10 +17,10 @@ if ($API->connect($host, 'api_user', 'api_user')) {
 #   $API->write('/ip/hotspot/user/getall');
 
    $API->comm("/ip/hotspot/user/add", array(
-      "name"     => "60:8F:5C:B8:75:4F",
-      "mac-address"     => "60:8F:5C:B8:75:4F",
-      "password" => "reusablepass",
-      "limit-uptime"  => "00:30:00",
+      "name"     => "leo",
+      "mac-address"     => "00:00:00:00:00:00",
+      "password" => "pass",
+      #"profile"  => "WIBERCUSTOMER",
       
    ));
 

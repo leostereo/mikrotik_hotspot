@@ -14,6 +14,10 @@ class ErrorManager
 			return "se ha terminado el tiempo de uso del servicio";
 		}elseif (preg_match('/this MAC address is not yours/', $error)){
 			return "La mac address intrucida fue clonada";
+		}elseif (preg_match('/is not allowed to log in from this MAC/', $error)){
+			return "El usuario ya esta registrado con otro dispositivo";
+		}elseif (preg_match('/no more sessions are allowed for user/', $error)){
+			return "Se ha alcanzado el limite maximo de dispositivos conectados para esta cuenta";
 		}else{
 			$file = 'loginlog.txt';
 			$line = date("Y-m-d H:i:s")." ".$error.PHP_EOL;
