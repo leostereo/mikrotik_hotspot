@@ -11,7 +11,7 @@ class ValidatorClass {
                 );
 
 
-	public static function validate ($user, $mac, $code, $customer, $document, $mail) {
+	public static function validate ($user, $mac, $code, $customer, $document, $mail, $phone) {
 	
 	#echo "($user, $mac, $code, $customer, $document, $mail)";
 
@@ -62,6 +62,13 @@ class ValidatorClass {
                                 self::$validate_arr['info_msg'] = "El mail ingresado no es valido";
                                 self::$validate_arr['profile_msg'] = "MAIL_ERR";
                         }
+                        if(!self::validate_phone($phone)){
+                                self::$validate_arr['result'] = false;
+                                self::$validate_arr['op_code'] = false;
+                                self::$validate_arr['error_info'] = "El telefono ingresado no es valido";
+                                self::$validate_arr['info_msg'] = "El telefono ingresado no es valido";
+                                self::$validate_arr['profile_msg'] = "PHONE_ERR";
+                        }
 
 		}
 
@@ -75,6 +82,12 @@ class ValidatorClass {
 	private static function validate_dni ($document){
 		#echo $document;		
 		return ((strlen($document) > 6)&&(is_numeric($document))) ? true : false;
+			
+	}
+
+	private static function validate_phone ($phone){
+		#echo $document;		
+		return ((strlen($phone) > 6)&&(is_numeric($phone))) ? true : false;
 			
 	}
 

@@ -13,9 +13,9 @@ class UserManager
 			"info_msg" => ""		
 		);
 
-    public static function get_profile($user, $mac, $code, $customer, $document, $mail) {
+    public static function get_profile($user, $mac, $code, $customer, $document, $mail, $phone) {
 		
-		$validator_result_arr = ValidatorClass::validate($user, $mac, $code, $customer, $document, $mail);
+		$validator_result_arr = ValidatorClass::validate($user, $mac, $code, $customer, $document, $mail, $phone);
 		
 		if($validator_result_arr['result']){
 	

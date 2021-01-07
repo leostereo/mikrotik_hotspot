@@ -61,20 +61,23 @@ require 'static_classes/ErrorManager.php';
 
 		echo <<<EOT
 		<div class="form-group">
-			<label for="username">Nombre</label>
-			<input type="text" class="form-control" name="name">
+			<label for="username">Nombre y Apellido</label>
+			<input type="text" class="form-control" name="name" placeholder="Gerardo Martinez">
 		</div>
 		<div class="form-group">
 			<label for="phone">Telefono</label>
-			<input type="text" class="form-control" name="phone">
+			<input type="text" class="form-control" name="phone" placeholder="4223344 o 2612516514">
 		</div>
 		<div class="form-group">
 			<label for="code">Correo</label>
-			<input type="text" class="form-control" name="mail">
+			<input type="text" class="form-control" name="mail" placeholder="emanuel@gmail.com">
+		</div>
+		<div class="submit_frame">
+			<button type="submit" class="btn btn-primary">INGRESAR</button>
 		</div>
 		<div class="form-group">
-			<label for="code">Codigo de acceso</label>
-			<input type="text" class="form-control" name="code">
+			<label for="code">Tengo un código de acceso (opcional)</label>
+			<input type="text" class="form-control" name="code" placeholder="codigo alfanumérico">
 		</div>
 EOT;
 	}else{
@@ -83,17 +86,17 @@ EOT;
 
 		
 		<div class="form-group">
-			<label for="document">DNI</label>
+			<label for="document">DNI del titular de cuenta Wiber</label>
 			<input type="text" class="form-control" name="document">
+		</div>
+		<div class="submit_frame">
+			<button type="submit" class="btn btn-primary">INGRESAR</button>
 		</div>
 EOT;
 
 }
 ?>
 
-		<div class="submit_frame">
-			<button type="submit" class="btn btn-primary">INGRESAR</button>
-		</div>
 
 	</form>
 </div>

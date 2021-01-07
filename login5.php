@@ -89,9 +89,9 @@ EOT;
 			<br>
 			<div class="row justify-content-center">
 				<div class="button-group">  
-						<button onclick="set_is_customer()" class="btn btn-primary btn-lg btn-block">Soy cliente wiber</button>
+						<button onclick="set_is_customer()" class="btn btn-primary btn-lg btn-block">SOY cliente Wiber</button>
 
-						<button  onclick="set_is_not_customer()" class="btn btn-primary btn-lg btn-block">No soy cliente wiber</button>
+						<button  onclick="set_is_not_customer()" class="btn btn-primary btn-lg btn-block">NO soy cliente Wiber</button>
 				</div>
 			</div>
 		</div>

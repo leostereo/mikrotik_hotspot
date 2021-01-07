@@ -24,7 +24,7 @@ $chapid=$_POST['chap-id'];
 	file_put_contents($file, $line, FILE_APPEND | LOCK_EX);
 	#echo $msg.PHP_EOL;
 
-	$profile_arr = UserManager::get_profile($name,$mac_address,$code,$customer,$document,$mail);	
+	$profile_arr = UserManager::get_profile($name,$mac_address,$code,$customer,$document,$mail,$phone);	
 
 	#print_r($_POST);
 ?>
