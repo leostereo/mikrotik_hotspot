@@ -41,7 +41,7 @@ class UserManager
 
     private static function delete_user($mac) {
 
-	$host = '172.30.7.2';
+	$host = '10.30.30.254';
 	$ros_command= "ip hotspot user remove \"$mac\"";
 	$shell_command= "sshpass -p 'api_user' ssh api_user\@$host -p22000 -o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null '".$ros_command."'";
 	$out_str = shell_exec($shell_command);
@@ -53,7 +53,7 @@ class UserManager
 
     private static function user_exist($name,$mac) {
 
-	$host = '172.30.7.2';
+	$host = '10.30.30.254';
 	$ros_command= "ip hotspot user add name=$name mac-address=$mac password=reusablepass";
 	$shell_command= "sshpass -p 'api_user' ssh api_user\@$host -p22000 -o StrictHostKeyChecking=no  -o UserKnownHostsFile=/dev/null '".$ros_command."'";
 	$out_str = shell_exec($shell_command);
@@ -88,7 +88,7 @@ class UserManager
 	$peers_nok=array();
 	$peers_ok=array();
 	$peers_nok_list='';
-	$host= "172.30.7.2";
+	$host= "10.30.30.254";
 
 			ob_start();
 			if ($API->connect($host, 'api_user', 'api_user')) {

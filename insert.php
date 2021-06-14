@@ -1,5 +1,7 @@
 <?php
 require 'static_classes/UserManager.php';
+require 'static_classes/ELKManager.php';
+
 $name=$_POST['name'];
 $document=$_POST['document'];
 $customer=$_POST['is_customer'] ? true : false;
@@ -20,11 +22,12 @@ $chapid=$_POST['chap-id'];
 
 
 	$file = 'loginlog.txt';
-	$line = date("Y-m-d H:i:s")." $name $document $phone $mail $ip_address $mac_address $code".PHP_EOL;
+	$line = date("Y-m-d H:i:s")." $name | $document | $phone | $mail | $ip_address | $mac_address | $code".PHP_EOL;
 	file_put_contents($file, $line, FILE_APPEND | LOCK_EX);
 	#echo $msg.PHP_EOL;
 
 	$profile_arr = UserManager::get_profile($name,$mac_address,$code,$customer,$document,$mail,$phone);	
+	ELKManager::log_into_elk($name,$mac_address,$code,$customer,$document,$mail,$phone);
 
 	#print_r($_POST);
 ?>
